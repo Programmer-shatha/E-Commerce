@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOSTAN RAHIQ</title>
+    <link rel="icon" href="../static/image/icon.PNG">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <style>
+        .dropdown{
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 5px 5px 5px rgba(255, 255, 255, 0.137);
+        }
+
+      .dropdown a{
+        color: black;
+        text-decoration: none;
+      }
+      
+    </style>
+</head>
+<body>
+    <!--header-->
+    <header class="header">
+        <div class="container">
+                <!--Navbar-->
+                <div class="row">
+                <nav class="navbar navbar-expand-lg ">
+                    <div class="container">
+                        <h3 class="navbar-brand text-white mt-2"><b>BOSTAN RAHIQ</b></h3>
+                        <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav m-auto mb-2 mb-lg-0 ">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" aria-current="page" href="{% url 'home'%}"><strong>HOME</strong></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'showplant'%}"><strong>PLANT</strong></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white " href="{% url 'showflower'%}"><strong>FLOWERS</strong></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white " href="{% url 'showgift'%}"><strong>GIFT</strong></a>
+                            </li>
+                        </ul>
+                        
+                        <div class="d-flex nav-icons">
+                            {%if request.user.is_authenticated%}
+                            <span class="mx-3 text-white mt-2" style="font-weight: bold;">Welcome {{ user.username }}</span>
+                              <form action="{% url 'auth_logout' %}" method="post">
+                                <a href="#" style="text-decoration: none;"><i class="fa fa-heart text-white"></i></a>
+                                
+                                <a href="{% url 'showcart' %}" style="text-decoration: none;">
+                                    
+                                    <i class="fa fa-shopping-cart text-white"></i>
+                                    <span class="position-absolute translate-middle badge badge-notification rounded-pill bg-danger my-1 ">
+                                      {{ request.session.countcart }}
+                                    </span>
+                                  </a>
+                                <button class="btn btn-link mb-2"><i class="fa fa-sign-out text-white" aria-hidden="true">Logout</i></button>
+                              </form>
+                              
+                            {% else %}
+                            <a href="#"><i class="fa fa-heart text-white"></i></a>
+                            <a href="{% url 'showcart' %}"><i class="fa fa-shopping-cart text-white" ></i></a>
+                            <div class="dropdown mx-3 ">
+                              <a class=" dropdown-toggle px-1" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-user text-dark"></i>
+                              </a>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item m-0" href="{% url 'auth_register' %}"><i class="fa fa-user-plus"><span class="mx-2">Register</span></i></a></li>
+                                  <li><a class="dropdown-item m-0" href="{% url 'auth_login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i><span class="mx-2">Login</span></a></li>
+                              </ul>
+                            </div>
+                          {% endif %}
+                        </div>
+                    </div>
+                    </div>
+                </nav>
+                </div>
+
+
+
+                <!--Description-->
+                <header class="description">
+                    <div class="container px-4 px-lg-5 h-100">
+                        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                            <div class="col-lg-8 align-self-end">
+                                <h1 class="text-white font-weight-bold">Welcome to the world of natural beauty</h1>
+                                <hr class="main-hr"/>
+                            </div>
+                            <div class="col-lg-8 align-self-baseline">
+                                <p class="text-white -75 mb-5">Explore the beauty of nature with our exquisite collection of vibrant flowers and plants, perfect for adding a touch of elegance to your space</p>
+                                <a class=" btn-shop rounded-pill text-white" href="#product" style="text-decoration: none;">Shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+        </div>
+    </header>
+
+    <!--Product-->
+    <h1 class="text-center mt-5" id="product">Product</h1>
+    <section class="wrapper">
+                <div class="container">
+            
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-4"><div class="card text-dark card-has-bg click-col" >
+                    <a href="{% url 'showplant'%}">
+                        <div class="card-img-overlay d-flex flex-column">
+                            <div class="card-body">
+                                <h4 class="card-title text-center my-5 text-white ">PLANTS</h4>
+                            </div>
+                            <div class="card-footer">
+                            <div class="media">
+                                <div class="mr-3 rounded-circle" ><i class="fa fa-leaf text-white " style="font-size:66px"></i></div>
+                                <div class="media-body">
+                                <p class="text-white"><strong>Discover the products</strong></p>
+                        </div>
+                            </div>
+                            </div>
+                            </div>
+                    </a>
+                    </div>
+                </div>
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-4"><div class="card text-dark card-has-bg click-col" >
+                      <a href="{% url 'showflower'%}">
+                        <div class="card-img-overlay d-flex flex-column">
+                            <div class="card-body">
+                                <h4 class="card-title text-center my-5 text-white ">FLOWERS</h4>
+                            </div>
+                            <div class="card-footer">
+                            <div class="media">
+                            <div class="mr-3 rounded-circle" ><span class="material-symbols-outlined text-white" style="font-size:66px">local_florist</span></div>
+                            <div class="media-body">
+                            <p class="text-white"><strong>Discover the products</strong></p>
+                        </div>
+                    </div>
+                         </div>
+                        </div>
+                      </a>
+                    </div></div>
+            
+            
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-4"><div class="card text-dark card-has-bg click-col">
+                    <a href="{% url 'showgift'%}">
+                        <div class="card-img-overlay d-flex flex-column">
+                            <div class="card-body">
+                              
+                               <h4 class="card-title text-center my-5 text-white">GIFT</h4>
+                               
+                             </div>
+                             <div class="card-footer">
+                              <div class="media">
+                     <div class="mr-3 rounded-circle" ><i class="fa fa-gift text-white" style="font-size:66px"></i></div>
+                     <div class="media-body">
+                        <p class="text-white"><strong>Discover the products</strong></p>
+                     </div>
+                   </div>
+                             </div>
+                           </div>
+                    </a>
+                    </div></div>
+            </div>
+                
+            </div>
+    </section>
+
+    <!--sale-->
+    <section class="sale mt-5">
+    <div class="container py-5">
+    <div class="row">
+
+
+        <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
+          <div class="card">
+            <div class="d-flex justify-content-between p-3">
+                <img src="../static/image/rose.png"
+                class="w-50" />
+            </div>
+            <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <h2>SALE UP TO <span class="disC"> 30%</span> OFF</h2>
+            </div>
+
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-8 mb-4 mb-md-0">
+          <div class="card" style="background-color: rgba(67, 91, 77, 1)">
+            <div class="card-body">
+                <div id="myslide" class="carousel slide carousel-dark mt-5 " data-bs-touch="false">
+                    <div class="carousel-inner">
+              
+                      <div class="carousel-item active">
+                            <h2 class="text-center text-white">RAMADAN OFFERS</h2>
+                          
+                        <script src="https://cdn.lordicon.com/lordicon.js"></script>
+                        <lord-icon
+                        src="https://cdn.lordicon.com/ajwiqpin.json"
+                        trigger="loop"
+                        delay="1000"
+                        style="width:200px;height:170px"
+                        class="d-block mx-auto ">
+                    </lord-icon>
+                      </div>
+                     
+                     
+              
+                      <div class="carousel-item ">
+                       <h2 class="text-center text-white">Special Offer On First Order </h2>
+                        <div class="text-center">
+                            <i class="bi bi-cart-check" style="font-size: 110px; color: white;" class="d-block mx-auto"></i>
+                        </div>
+                      </div>
+              
+                    </div>
+                    <a class="carousel-control-prev " type="button" data-bs-target="#myslide" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                      <span class="visually-hidden "></span>
+                    </a>
+                    <a class="carousel-control-next"   type="button" data-bs-target="#myslide" data-bs-slide="next">
+                      <span class="carousel-control-next-icon " aria-hidden="true"></span>
+                      <span class="visually-hidden"></span>
+                    </a>
+                  </div>
+
+              
+                    </div>
+                </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section> 
+
+    <!--advantages-->
+    <div class="container mt-5">
+    <div class="row">
+        <div class="col-4">
+            <div class="advantages mx-auto">
+                <i class='fa fa-truck mt-3 mx-3' style='font-size:38px;color: white;'></i>
+            </div>
+            <p class="text-center mt-2"><strong>Fast & Free Shipping</strong></p>
+        </div>
+
+        <div class="col-4">
+            <div class="advantages mx-auto">
+                <i class='fa fa-shopping-bag mt-3 mx-3' style='font-size:38px;color: white;'></i>
+            </div>
+            <p class="text-center mt-2"><strong>Easy To Shop</strong></p>
+        </div>
+
+        <div class="col-4">
+            <div class="advantages mx-auto">
+                <i class="bi bi-headset mt-3 mx-3 " style='font-size:38px;color: white;'></i>
+            </div>
+            <p class="text-center mt-2"><strong>24/7 Support</strong></p>
+        </div>
+    </div>
+    </div>
+
+<!--Footer-->
+<footer class="text-center text-lg-start text-white mt-5" style="background-color: rgba(67, 91, 77, 1)">
+  <div class="container p-4 pb-0">
+      <div class="row">
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+      </div>
+  </div>
+
+
+  <form action="">
+      <div class="row d-flex justify-content-center">
+          <div class="col-auto">
+              <p class="pt-2"><strong>Sign up for our newsletter</strong></p>
+          </div>
+          <div class="col-md-5 col-12">
+              <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="email" id="form5Example24" class="form-control" placeholder="Email address" />
+              </div>
+          </div>
+          <div class="col-auto">
+              <button data-mdb-ripple-init type="submit" class="btn-my-auto  btn-sm btn btn-outline-light" style=" padding: 5px; border-radius: 4px;">Subscribe</button>
+          </div>
+      </div>
+  </form>
+
+
+  <hr class="my-3">
+
+  <section class="p-3 pt-0">
+      <div class="row d-flex align-items-center">
+          <div class="col-md-7 col-lg-8 text-center text-md-start">
+              <div class="p-3">
+                  © 2024 Copyright:
+                  <a class="text-white" href="https://mdbootstrap.com/">BostanRahiq.com</a>
+              </div>
+          </div>
+          <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+              <a class=" btn-outline-light btn-floating m-1 text-white" class="text-white" role="button"><i class="fa fa-facebook-f"></i></a>
+              <a class=" btn-outline-light btn-floating m-1 text-white" class="text-white" role="button"><i class="fa fa-twitter"></i></a>
+              <a class=" btn-outline-light btn-floating m-1 text-white" class="text-white" role="button"><i class="fa fa-instagram"></i></a>
+          </div>
+      </div>
+  </section>
+
+
+
+</footer>
+
+</body>
+</html>

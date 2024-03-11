@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+<div class="row">
+  <div class="col-md-8 mb-4">
+  <div class="card">
+    <h1 class="text-center">Biling details</h1>
+  <div class="card-body">
+    <form method="post" class="from-group form-outline">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn" style="background-color:rgba(222, 194, 187, 1);">Checkout</button>
+  </form>
+  </div>
+  </div>
+  </div>
+
+  <div class="col-4">
+   <div>
+    <h4>Your cart</h4>
+   </div>
+    <div class="card">
+      <div class="card-body">
+        {%for item in cart_product %}
+        <div class="row justify-content-center mb-3">
+          <div class="col-md-12 col-xl-10">
+            <div class="card shadow-0 border rounded-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 col-lg-6 col-xl-6">
+                    <h5>{{item.name_product}}</h5>
+                  </div>
+                  <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                    <div class="d-flex flex-row align-items-center mb-1">
+                      <p class="mb-1 me-1 my-3">{{item.total}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {%endfor%}
+        <hr>
+        <p>Price:<span class="mx-2">{{price_sum}}</span></p>
+        <p>Tax: <span class="mx-2">0.15</span></p>
+        <p>Total(SAR): <span class="mx-2">{{total_sum}}</span> </p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+<style media="screen">
+  *,
+  *:before,
+  *:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .background {
+    width: 40px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 10%;
+    top: 10%;
+  }
+
+  form {
+    height: 600px;
+    width: 600px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(67, 91, 77, 1);
+    box-shadow: 0 0 20px rgba(8, 7, 16, 0.6);
+    padding: 50px 35px;
+  }
+  form * {
+    font-family: "Poppins", sans-serif;
+    color: rgba(67, 91, 77, 1);
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+  }
+  form h3 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+  }
+
+  label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  input {
+    display: block;
+    height: 40px;
+    width: 100%;
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 2px;
+    font-size: 14px;
+    font-weight: 300;
+    border: 1px solid rgba(67, 91, 77, 1);
+  }
+  ::placeholder {
+    border: 1px solid rgba(67, 91, 77, 1);
+  }
+  button {
+    margin-top: 14px;
+    width: 100%;
+    background-color: rgba(222, 194, 187, 1);
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  ul {
+    display: none;
+  }
+
+  .helptext {
+    display: none;
+  }
+</style>
+
+<form method="post" class="from-group">
+  <img
+    src="../static/image/add-user_747385.png"
+    alt=""
+    width="50"
+    height="50"
+    class="mx-5"
+  />
+  {%csrf_token%} {{registerform.as_p}}
+  <button class="btn btn-primary" type="submit">register</button>
+  <p class="small fw-bold mt-2 pt-1 mb-0">you have an account?<a href="{% url 'auth_login'%}"class="link-dark">Login</a></p>
+</form>

@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="../static/css/show.css">
+
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="container mt-5">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-lg-6 col-sm-12">
+                    <form>
+                    <div class="form" action="{% url 'showplant' %}" method="post">
+                        {% csrf_token %}
+                        <i class="fa fa-search"></i>
+                        <input type="text" class="form-control form-input" name="plant" placeholder="Search Product...">
+                    </div>
+                </div>
+                <div class="col-md-5 offset-md-5">
+                    {% if show_All %}
+                        <a href="{% url 'showplant' %}" class="btn mt-5 rounded-pill text-white" style="background-color:  rgba(67, 91, 77, 1);">show All</a>
+                    {% endif %}
+                </div>
+                </form>
+            </div>
+        </div>
+    
+        <div class="row mt-5 d-flex justify-content-center mb-3 mx-2 ">
+            {% for item in plant %}
+            <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 col-sm-12 mt-5">
+                <div class="card " style="height: 380px; width:280px">
+                    <div class="image-container">
+                        <div class="mt-4 mx-3">
+                            <img src="../static/image/{{item.image1}}" class="img-fluid rounded thumbnail-image" style="height: 250px; width: 250px;" >
+                        </div>
+                    </div>
+    
+    
+                        <div class="product-detail-container p-2">
+    
+                                <div class="d-flex justify-content-between align-items-center">
+    
+                                    <p class="text-start">{{item.nameproduct}}</p>
+    
+                                    <div class="d-flex flex-column mb-2">
+    
+                                        <span class="new-price">SAR {{item.total}}</span>
+                             
+                                    </div>
+                                
+                                </div>
+    
+     
+                                <div class="mx-2">
+                                    <a href="{% url 'detailsplant' id=item.id %}" class="p-2 mx-5 btn-show rounded-pill text-white" type="submit">show Details</a>
+                                </div>
+    
+                        </div>
+                        
+                    </div>
+    
+                
+            </div>
+            {%endfor%}
+        </div>
+        
+
+    </div>
+    {% endblock %}

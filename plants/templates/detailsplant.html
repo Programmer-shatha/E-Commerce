@@ -1,0 +1,118 @@
+<link rel="stylesheet" href="/static/css/details.css">
+
+{% extends "base.html" %}
+
+{% block content %}
+        <!-- ProductsDetails -->
+        <div class="container mt-5 mb-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="row">
+                            {%for item in plant%}
+                            <div class="col-md-6">
+                                <div class="images p-3">
+                                    <div class="text-center p-4"> 
+                                        <img id="main-image" class="main-image" src="/static/image/{{item.image1}}" width="250"  height="250" />
+                                     </div>
+                                    <div class="thumbnail text-center"> 
+                                        <img onclick="details(this.src)" src="/static/image/{{item.image1}}" width="80" >
+                                        <img onclick="details(this.src)" src="/static/image/{{item.image2}}" width="80">
+                                         <img onclick="details(this.src)" src="/static/image/{{item.image3}}" width="80"> 
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product p-4">
+                                    <div class="mt-4 mb-3"> 
+                                        <h5 class="text-uppercase">{{item.nameproduct}}</h5>
+                                        <div class="price d-flex flex-row align-items-center"> 
+                                            <span class="act-price">{{item.price}}</span>
+                                        </div>
+                                    </div>
+                                    <p class="about">{{item.description}}</p>
+                                    <div class="sizes mt-3">
+                                        <h6 class="text-uppercase">Quantity</h6>
+                                        <div class="def-number-input number-input safari_only">
+                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                              class="minus"></button>
+                                            <input class="quantity fw-bold text-black" min="0" name="quantity" value="1"
+                                              type="number">
+                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                              class="plus"></button>
+                                          </div>
+                                    <div class="cart mt-4 align-items-center">
+                                        <button class="rounded-left  btnAdd text-uppercase mr-2 px-4"><a href="{% url 'checkout'%}" class="text-white">Buy Now</a></button>
+                                        <button class=" rounded-left  btnAdd text-uppercase mr-2 px-4"><a href="{% url 'add_to_cart' id=item.id %}" class="text-white">Add to cart</a></button> 
+                                       <a href=""> <i class="fa fa-heart "></i> </a>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="container similar-products my-4">
+        <hr>
+        <p class="display-5">Related Products</p>
+
+        <div class="row mt-5 justify-content-center mb-3 mx-5">
+            {%for Related in plant_related%}
+            <div class="col-md-4">
+                <div class="similar-product">
+                    
+
+                    <div class="card card2" style="height: 380px; width:280px">
+
+                        <div class="image-container">
+    
+                        
+    
+                            <img src="/static/image/{{Related.image1}}" class=" rounded thumbnail-image mx-3"  height="280" width="250">
+                            
+    
+                        </div>
+    
+    
+                        <div class="product-detail-container p-2">
+    
+                                <div class="d-flex justify-content-between align-items-center">
+    
+                                    <p class="dress-name">{{Related.nameproduct}}</p>
+    
+                                    <div class="d-flex flex-column mb-2">
+    
+                                        <span class="new-price">{{Related.total}}</span>
+                             
+                                    </div>
+                                
+                                </div>
+    
+     
+                                <div class="mx-4">
+                                    <button class="p-2 mx-5 btn-show rounded-pill" type="submit"><a href="{% url 'showplant' %}" class="text-white">show</a></button>
+                                </div>
+    
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+
+
+
+<script>
+    let img = document.querySelector('.main-image');
+    function details(details){
+        img.src = details
+    }
+</script>
+
+{% endblock %}
